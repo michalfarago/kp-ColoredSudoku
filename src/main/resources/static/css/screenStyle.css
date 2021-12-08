@@ -1,0 +1,290 @@
+﻿
+.hide{
+    display: none;
+}
+
+h1{
+    font-family: 'Zen Dots', cursive;
+    text-shadow: 3px 3px #919191;
+}
+
+.myBox{
+    background:  rgba(62, 68, 74,0.7 );
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 1em;
+    width: 33vw;
+    margin: auto;
+}
+
+.animate{
+    animation-duration: 1s;
+    animation-name: appear;
+}
+
+@keyframes appear {
+    from {
+        transform: translatey(-200%);
+        opacity: 0;
+    }
+    50%{
+        opacity: 0;
+    }
+    to   {
+        transform: translatey(0%);
+        opacity: 1;
+    }
+}
+
+input:checked + label {
+    font-size: medium;
+    font-weight: bold;
+    color: #e3623e;
+    font-size: large;
+}
+
+.mainItem{
+    font-family: 'Zen Dots', cursive;
+    background-color: black;
+    color: #e3623e;
+    border: 2px solid black;
+    padding: 5px;
+    width: 200px;
+    font-size: x-large;
+    font-weight: bold;
+    margin-bottom: 7px;
+    transition: 0.5s;
+}
+
+.mainItem:hover{
+    color: white;
+}
+
+button a{
+    transition: 0.5s;
+}
+
+
+label h5{
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+}
+
+#winButton{
+    font-family: 'Zen Dots', cursive;
+}
+
+label{
+    width: 200px;
+    background-color: #151617;
+    border: 2px solid #1d2124;
+}
+
+button a:visited {
+    text-decoration: none;
+    color: #e3623e;
+}
+
+button a:link {
+    text-decoration: none;
+    color: #e3623e;
+}
+
+button a:hover {
+    text-decoration: none; !important;
+    text-underline: none; !important;
+    color: white;
+}
+
+.tileButton{
+    width: 35px;
+    height: 31px;
+    background: none;
+    border: none;
+}
+
+
+body {
+    background-image: url(background.jpg);
+    background-size:cover;
+}
+
+/* Leaderboard */
+tr.spaceUnder>td {
+    padding-bottom: 1em;
+}
+
+/* Comment section */
+
+.commentBubble{
+    width: 500px;
+}
+
+/* Sudoku TABLE style */
+
+table {
+    margin: auto;
+}
+
+.optionButton{
+    background-color: #343a40;
+    border: 2px solid white;
+    box-shadow: 3px 3px #e3623e;
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    display: block;
+}
+
+.topBox{
+    background-color: #343a40;
+    box-shadow: 3px 3px #e3623e;
+}
+
+.optionButtonDisabled{
+    background-color: #343a40;
+    border: 2px solid white;
+    box-shadow: 3px 3px #8c8b8b;
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    display: block;
+    filter: grayscale(100%);
+}
+
+.chooseBar{
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+}
+
+.blockTile{
+    width: 40px !important;
+    height: 40px !important;
+    border: 2px solid white;
+}
+
+th.blockTile{
+    border: 2px solid black;
+}
+
+/* Tile colors */
+
+.tile0{
+    background: white;
+}
+.tile1{
+    background: #d9f8c0;
+}
+.tile2{
+    background: red;
+}
+.tile3{
+    background: #5ac35a;
+}
+.tile4{
+    background: blue;
+}
+.tile5{
+    background: orange;
+}
+.tile6{
+    background: #6f42c1;
+}
+.tile7{
+    background: yellow;
+}
+.tile8{
+    background: pink;
+}
+.tile9{
+    background: lightskyblue;
+}
+
+.tile10{
+    background: deeppink;
+}
+.tile11{
+    background: lime;
+}
+.tile12{
+    background: darkred;
+}
+.tile13{
+    background: #a9a9a9;
+}
+.tile14{
+    background: steelblue;
+}
+.tile15{
+    background: #ffe3ac;
+}
+.tile16{
+    background: #a578fc;
+}
+
+.fade-in{
+    animation-name: fadein;
+    animation-duration: 4s;
+}
+
+
+
+.pulsate{
+    height:100px;
+    animation-name: pulse;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+    from {font-size: 50px; padding-top:15px;}
+    50%{font-size: 100px;padding-top:0%;}
+    to {font-size: 50px;padding-top:15px;}
+}
+
+@keyframes fadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.speech-bubble {
+    position: relative;
+    background: #343a40;
+    border-radius: .4em;
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 25px solid transparent;
+    border-right-color: #343a40;
+    border-left: 0;
+    border-top: 0;
+    margin-top: -18px;
+    margin-left: -25px;
+}
+
+.orange{
+    color: #e3623e !important;
+}
+
+.lock{
+    background-image: url(lock.png);
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.myButton{
+    border-radius: 0px !important;
+    font-family: 'Zen Dots', cursive;
+}
+
+.myfont{
+    font-family: 'Zen Dots', cursive;
+}

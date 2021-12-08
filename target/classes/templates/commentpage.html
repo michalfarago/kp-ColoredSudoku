@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/screenStyle.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/site.css"/>
+    <title>Document</title>
+</head>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand font-weight-bold" href="/mainmenu">Main Menu</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link orange font-weight-bold" href="/commentpage">Comments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link orange font-weight-bold" href="/ratingpage">Rating Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link orange font-weight-bold" href="/leaderboard">Leaderboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<body >
+
+<h1 class="text-light text-center">
+    YOUR COMMENTS
+</h1>
+<div class="row justify-content-around">
+    <div class="commentBubble m-3 row text-center" th:each="comment : ${commentlist}">
+        <div class="col-4">
+            <div style="
+                background: #7c7c7ca8;
+                border-radius: 50%;
+                height: 100px;
+                width: 100px;
+            ">
+                <img th:attr="src=${@sudokuController.userImage}" alt="User Icon" width="50" height="50" style="
+                margin-top: 10px;
+            ">
+                <div class="py-1 text-light font-weight-bold">
+                    <span th:text="${comment.author}"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8 h4 font-italic text-light py-4 speech-bubble">
+            <span th:text="${comment.text}"></span>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<footer class="bg-dark footer text-light">
+    <div class="container text-center">
+        © Copyright 2021 Michal Faragó
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>

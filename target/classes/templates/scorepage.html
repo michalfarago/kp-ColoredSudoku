@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/screenStyle.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/site.css"/>
+    <title>Document</title>
+</head>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand font-weight-bold" href="/mainmenu">Main Menu</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link orange font-weight-bold" href="/commentpage">Comments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link orange font-weight-bold" href="/ratingpage">Rating Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link orange font-weight-bold" href="/leaderboard">Leaderboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<body >
+
+<div class="row justify-content-center">
+    <h1 class="text-light">
+        LEADERBOARD
+    </h1>
+</div>
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <table class="table table-responsive  table-striped table-dark border-light leaderboard">
+            <tr>
+                <th  style="min-width:200px" class="text-center">
+                    PLAYER
+                </th>
+                <th  style="min-width:200px" class="text-center">
+                    SCORE
+                </th>
+                <th  colspan="2" style="min-width:150px" class="text-center">
+                    DIFFICULTY
+                </th>
+                <th style="min-width:200px" class="text-center">
+                    DATE
+                </th>
+            </tr>
+            <tr class="spaceUnder" th:each="score : ${scorelist}">
+                <td class="text-center align-middle">
+                    <span th:text="${score.playerName}"></span>
+                </td>
+                <td class="text-center align-middle">
+                    <span th:text="${score.points}"></span>
+                </td>
+                <td class="align-middle">
+                    <img th:attr="src=${@sudokuController.scoreDifficulty(score)}" alt="rank" width="40" height="40">
+                </td>
+                <td class="text-center align-middle" style="float: left;">
+                     <span th:text="${score.difficulty}"></span>
+                </td>
+                <td class="text-center align-middle">
+                    <span th:text="${score.playAt}"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+
+<footer class="bg-dark footer text-light">
+    <div class="container text-center">
+        © Copyright 2021 Michal Faragó
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/screenStyle.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/site.css"/>
+    <th:block th:utext="${@sudokuController.tileSet}"></th:block>
+    <title>Document</title>
+</head>
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand font-weight-bold" href="/mainmenu">Main Menu</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link orange font-weight-bold" href="/commentpage">Comments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link orange font-weight-bold" href="/ratingpage">Rating Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link orange font-weight-bold" href="/leaderboard">Leaderboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<body>
+
+<!-- Player Info -->
+<div class="row p-1 bg-dark text-light text-center mb-3 topBox mx-3">
+    <div class="col-2">
+        SCORE <br> <th:block th:text="${@sudokuController.points}"></th:block>
+    </div>
+    <div class="col-8">
+        <h1 class="text-center text-light">Colored Sudoku</h1>
+    </div>
+    <div class="col-2">
+        PLAYER <br>  <th:block th:text="${@sudokuController.playername}"></th:block>
+    </div>
+</div>
+
+<div class="row" th:if="${@sudokuController.gamestatus == false}">
+    <!-- GameBoard -->
+    <div class="col-md-8 px-2">
+        <table style="background: black;">
+            <th:block th:utext="${@sudokuController.sudokuGameboard}"></th:block>
+        </table>
+    </div>
+
+
+<!-- Color Options -->
+<div class="col-md-2" style="margin-top: auto; margin-bottom: auto;">
+    <table>
+        <h4 class="text-center py-1 text-light">Color Palet</h4>
+        <span th:utext="${@sudokuController.colorOptions}"></span>
+    </table>
+</div>
+
+<!-- Settings -->
+<div class="col-md-2" style="margin-top: auto; margin-bottom: auto;">
+    <button type="button" class="p-1 optionButton" onclick="location.href='/askhint'">
+        <img src="images/idea.png" alt="lightbulb" width="40" height="40">
+    </button>
+    <th:block th:if="${playername != 'guest'}">
+        <button type="button" class="p-1 optionButton" data-toggle="modal" data-target="#leaveCommentModal">
+            <img src="images/commentBubble.png" alt="comment" width="40" height="40">
+        </button>
+        <button type="button" class="p-1 optionButton" data-toggle="modal" data-target="#leaveRatingModal">
+            <img src="images/star.png" alt="star" width="40" height="40">
+        </button>
+    </th:block>
+    <th:block th:unless="${playername != 'guest'}">
+        <button type="button" class="p-1 optionButtonDisabled" data-toggle="modal" data-target="#guestModalComment">
+            <img src="images/commentBubble.png" alt="comment" width="40" height="40">
+        </button>
+        <button type="button" class="p-1 optionButtonDisabled" data-toggle="modal" data-target="#guestModalRating">
+            <img src="images/star.png" alt="star" width="40" height="40">
+        </button>
+    </th:block>
+    <button type="button" class="p-1 optionButton" data-toggle="modal" data-target="#CheckHelperModal">
+        <img src="images/settings.png" alt="gear" width="40" height="40">
+    </button>
+</div>
+
+<th:block th:if="${hint != null}">
+    <div class="row p-1 bg-dark text-light text-center mx-auto mt-2">
+        <p class="p-2 my-auto"> TILE ON LOCATIONS </p>
+        <p class="p-2 my-auto"> X : <span th:text="${hint.x}"></span> </p>
+        <p class="p-2 my-auto"> Y : <span th:text="${hint.y}"></span> </p>
+        <p class="p-2 my-auto"> SHOULD BE </p>
+        <div th:class="${@sudokuController.hintSquare(hint)}"></div>
+    </div>
+</th:block>
+
+</div>
+
+<div class="col p-1 bg-dark text-light text-center my-5" th:unless="${@sudokuController.gamestatus == false}">
+    <div class="row justify-content-center mt-2">
+        <h1 class="text-center text-light p-2">CONGRATULATIONS GAME WON</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="my-4" id="average">
+            <h1 class="display-1">
+                <span th:text="${@sudokuController.playername}"></span>
+                <span th:text="${@sudokuController.points}"></span>
+            </h1>
+        </div>
+    </div>
+    <div class="text-center align-content-center p-2" th:if="${@sudokuController.playername != 'guest'}">
+        <button id="winButton" type="button" class="btn btn-light p-3 mb-2" style="width: 300px; font-size:x-large;" onclick="location.href='/savescore'">
+            Save My Score
+        </button>
+    </div>
+</div>
+
+
+<!-- Modal Comment -->
+<div class="modal fade" id="leaveCommentModal" tabindex="-1" role="dialog" aria-labelledby="leaveCommentModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title myfont" id="exampleModalLongTitle">Leave comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/addcomment">
+                <div class="modal-body">
+                    <textarea class="form-control myfont" name="text"  rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary myButton" data-dismiss="modal">Close</button>
+                    <button type="submit" style="background: #ff923b" class="btn myButton">Save Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Rating -->
+<div class="modal fade" id="leaveRatingModal" tabindex="-1" role="dialog" aria-labelledby="leaveRatingModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title myfont" id="exampleModalLongTitle">Leave rating</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/addrating">
+                <div class="modal-body">
+                    <select class="form-control myfont" id="stars" name="stars">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary myButton" data-dismiss="modal">Close</button>
+                    <button type="submit" style="background: #ff923b" class="btn myButton">Save Rating</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Check Helper -->
+<div class="modal fade" id="CheckHelperModal" tabindex="-1" role="dialog" aria-labelledby="CheckHelperModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title myfont" id="exampleModalLongTitle">Check Helper Settings</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/changecheckhelper">
+                <div class="modal-body">
+                    <div class="my-2 myfont">
+                        <span class="text-white">hello</span>
+                        <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="true" checked>
+                        Enabled <br>
+                        <span class="text-white">hello</span>
+                        <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="false">
+                        Disabled
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary myButton" data-dismiss="modal">Close</button>
+                    <button type="submit" style="background: #ff923b" class="btn myButton">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal guest -->
+<div class="modal fade" id="guestModalRating" tabindex="-1" role="dialog" aria-labelledby="leaveCommentModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title myfont" id="exampleModalLongTitle">Leave rating</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="p-4 myfont">
+                We are sorry, but as a guest user you are not allowed to rate the game. Please choose a name if you want to save your progres.
+            </div>
+            <form action="/changeplayername">
+                <h5 class="px-4 myfont">Player name</h5>
+                <div class="modal-body px-4">
+                    <input type="text" class="myfont" name="playername" minlength="4">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary myButton" data-dismiss="modal">Close</button>
+                    <button type="submit" style="background: #ff923b" class="btn myButton">Change Name</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal guest -->
+<div class="modal fade" id="guestModalComment" tabindex="-1" role="dialog" aria-labelledby="leaveCommentModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title myfont" id="exampleModalLongTitle">Leave comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="p-4 myfont">
+                We are sorry, but as a guest user you are not allowed add comments. Please choose a name if you want to save your progres.
+            </div>
+            <form action="/changeplayername">
+                <h5 class="px-4 myfont">Player name</h5>
+                <div class="modal-body px-4">
+                    <input type="text" class="myfont" name="playername" minlength="4">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary myButton" data-dismiss="modal">Close</button>
+                    <button type="submit" style="background: #ff923b" class="btn myButton">Change Name</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<footer class="bg-dark footer text-light">
+    <div class="container text-center">
+        © Copyright 2021 Michal Faragó
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>

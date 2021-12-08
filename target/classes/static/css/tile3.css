@@ -1,0 +1,15 @@
+﻿th.blockTile:first-child{
+    border-right: 5px solid black; !important;
+}
+
+th.blockTile:nth-child(3n+1){
+    border-right: 5px solid black; !important;
+}
+
+td.blockTile:nth-child(3n+1){
+    border-right: 5px solid black; !important;
+}
+
+tr.blockTile:nth-child(3n+1){
+    border-bottom: 5px solid black; !important;
+}
