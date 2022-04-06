@@ -1,8 +1,7 @@
 package sk.tuke.colorsudoku.service;
 
 public class SudokuException extends RuntimeException{
-    public SudokuException() {
-    }
+    public SudokuException() { }
 
     public SudokuException(String message) {
         super(message);

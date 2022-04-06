@@ -23,7 +23,7 @@ public class CommentServiceTest {
         CommentService commentService = createService();
         commentService.reset();
         for (int i = 0; i < 20; i++)
-            commentService.addComment(new Comment("Jaro", "Comment number " + i));
+            commentService.addComment(new Comment("Jaro", "Comment number "));
         Assert.assertEquals(10, commentService.getNewestComments().size());
     }
 
